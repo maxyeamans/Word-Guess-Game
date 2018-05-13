@@ -1,15 +1,20 @@
-var userInfo = {
-    "Wins" : 0,
-    "Losses" : 0,
-    "GuessesLeft" : 0,
-    "GameWon" : false,
-    "GameWord" : null,
+var GameData = {
+    "Wins": 0,
+    "Losses": 0,
+    "GuessesLeft": 10,
+    "GameWon": false,
+    "GameWord": null,
+
+    // Assign the game's word from an array of potential words
+    PickWord: function(words) {
+        this.GameWord = gameWords[Math.floor(Math.random() * words.length)];
+        console.log("This game's word:", this.GameWord);
+    }
+
 }
 
-var gameWords = ["hangman","programming","parameter","argument","stylesheet"];
+// Array holding potential list of words for each game
+var gameWords = ["hangman", "programming", "parameter", "argument", "stylesheet"];
 
-// Picks a word from the word array at random
-function PickWord(words) {
-    this.GameWord = gameWords[ Math.floor( Math.random() * words.length) ];
-}
-
+// Choose the game's word
+GameData.PickWord(gameWords);
