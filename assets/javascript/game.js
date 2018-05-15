@@ -1,8 +1,8 @@
 var GameData = {
     "Wins": 0,
     "Losses": 0,
-    "GuessesLeft": 3,
-    "GameWon": false,
+    "GuessesLeft": 0,
+    "GameOver": true,
     "GameWord": null,
     "CorrectLetters": 0,
     "GuessedLetters": [],
@@ -11,6 +11,7 @@ var GameData = {
 
     // Assign the game's word from an array of potential words
     PickWord: function () {
+        
         // Reset game stats
         this.ResetStats();
         // Show stats
@@ -18,8 +19,8 @@ var GameData = {
         console.log("Losses:", this.Losses);
         // Pick a new word        
         this.GameWord = gameWords[Math.floor(Math.random() * gameWords.length)];
-        console.log("This game's word:", this.GameWord);
-        console.log("Game has been won:", this.GameWon);
+        console.log("Type a letter and see if it works!");
+        // console.log("Game has been won:", this.GameWon);
         // Create a string with underscores equal to length of game's word
         for (i = 0; i < this.GameWord.length - 1; i++) {
             this.WordBuilder.push("_");
@@ -71,10 +72,10 @@ var GameData = {
         // If the number of correctly guessed letters
         // equals the length of the word, user wins.
         if (this.CorrectLetters == this.GameWord.length) {
-            console.log("Congrats! You win!");
-            console.log("");
+            console.log("Congrats! You win!\n\n");
             this.Wins++;
-            this.PickWord();
+            this.GameOver = true;
+            console.log("Press any key to start a new game.\n\n");
             return;
         }
 
@@ -82,18 +83,17 @@ var GameData = {
             console.log("You lose! Good day, sir!");
             console.log("");
             this.Losses++;
-            this.PickWord();
+            this.GameOver = true;
+            console.log("Press any key to start a new game.\n\n");
             return;
         }
 
-        // else {
-        //     return;
-        // }
+        
     },
 
     // Reset game stats
     ResetStats: function () {
-        this.GuessesLeft = 3;
+        this.GuessesLeft = 6;
         this.GameWon = false;
         this.CorrectLetters = 0;
         this.GuessedLetters = [];
@@ -104,14 +104,25 @@ var GameData = {
 }
 
 // Array holding potential list of words for each game
-var gameWords = ["hangman", "programming", "parameter", "argument", "stylesheet"];
+var gameWords = ["hangman", "programming", "parameter", "argument", "stylesheet","galavant","basketball","cookies","sausage"];
 
 // Choose the game's word
-GameData.PickWord();
+// GameData.PickWord();
+console.log("Press any key to begin.\n\n");
+
 
 document.onkeyup = function (event) {
 
+    if (GameData.GameOver == false) {
     var userInput = event.key.toLowerCase();
     console.log("User input:", userInput);
     GameData.LetterPicked(userInput);
+    }
+    
+    else if (GameData.GameOver == true) {
+        GameData.GameOver = false;
+        GameData.PickWord();
+    }
+
+    
 }
