@@ -42,8 +42,6 @@ var GameData = {
     },
 
     LetterPicked: function (letter) {
-        // Set the letter to lowercase justincase, might not be needed
-        // letter = letter.toLowerCase();
         // Check to see if the letter has already been guessed
         if (this.GuessedLetters.indexOf(letter) >= 0 || this.WordSoFar.indexOf(letter) >= 0) {
             // Do nothing if the letter has already been guessed, correctly or incorrectly
@@ -55,6 +53,9 @@ var GameData = {
             // Push the wrong letter to the GuessedLetters array
             this.GuessedLetters.push(letter);
             console.log("Guessed letters:", this.GuessedLetters);
+            var divGuessedLetters = document.getElementById("guessed-letters");
+            // !!! To do: add the code to insert the guessed letters into this div. !!!
+            // divGuessedLetters.textContent = this.GuessedLetters.forEach(function)
             // Decrement guesses left
             this.GuessesLeft--;
             console.log("Guesses left:", this.GuessesLeft);
