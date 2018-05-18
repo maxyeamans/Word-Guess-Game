@@ -16,7 +16,12 @@ var GameData = {
 
     // Assign the game's word from an array of potential words
     PickWord: function () {
-
+        // Play a victory sound
+        var victory = document.getElementById("audio-victory");
+        function playAudio() {
+            victory.load();
+            victory.play();
+        };
         // Reset game stats
         this.ResetStats();
         // // Clear the message area and make it message invisible
@@ -47,9 +52,6 @@ var GameData = {
     },
 
     LetterPicked: function (letter) {
-        // Clear the message area and make it invisible
-        var keyStart = document.getElementById("message-area");
-        keyStart.setAttribute("class", "invisible");
         // Check to see if the letter has already been guessed
         if (this.GuessedLetters.indexOf(letter) >= 0 || this.WordSoFar.indexOf(letter) >= 0) {
             // Do nothing if the letter has already been guessed
@@ -115,8 +117,15 @@ var GameData = {
             var divGameWin = document.getElementById("message-area");
             divGameWin.textContent = "Congrats! You win!";
             divGameWin.setAttribute("class", "visible");
+            // Play a victory sound
+            var victory = document.getElementById("audio-victory");
+            function playAudio() {
+                victory.load();
+                victory.play();
+            };
             this.Wins++;
             this.GameOver = true;
+            
             console.log("Press any key to start a new game.\n\n");
             this.PickWord();
         }
@@ -156,6 +165,9 @@ console.log("Press any key to begin.\n\n");
 
 
 document.onkeyup = function (event) {
+    // Clear the message area and make it invisible
+    var messageClear = document.getElementById("message-area");
+    messageClear.setAttribute("class", "invisible");
 
     if (GameData.GameOver == false) {
         var userInput = event.key.toLowerCase();

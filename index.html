@@ -14,26 +14,32 @@
 </head>
 
 <body>
+    <audio id="audio-victory" src="assets/sounds/victory.mp3"></audio>
+
     <div class="container">
         <div class="row text-center">
             <div class="col-lg-12 mx-auto">
                 <header class="jumbotron">
                     <h1 class="display-3">Word Guessing Game</h1>
-                    <div class="visible" id="message-area">
+                    <!-- The stuff displayed in here will change depending on game state -->
+                    <h2 class="visible" id="message-area">
                         Press any key to start the game.
-                    </div>
+                    </h2>
                 </header>
             </div>
         </div>
-        <div class="row mx-auto justify-content-around">
+        <div class="row mx-auto justify-content-between">
+            <!-- Even though this appears first, it'll appear second on screens greater than med width -->
+            <!-- On med width screen or smaller, it'll appear first with centered text -->
             <div class="col-md-3 order-md-2 text-center text-md-right bg-secondary">
-                <p id="wins"></p>
-                <p id="losses"></p>
-                <p id="guesses-left"></p>
+                <h3 id="wins"></h3>
+                <h3 id="losses"></h3>
+                <h3 id="guesses-left"></h3>
             </div>
             <div class="col-md-8 order-md-1 text-center bg-info">
 
                 <h2>The Current Word</h2>
+                <!-- The pl-3 is just here to push this element to be exactly centered -->
                 <h3 class="pl-3" id="word-so-far">
 
                 </h3>
@@ -41,7 +47,7 @@
                 <h3 id="guessed-letters">
                 </h3>
             </div>
-            
+
         </div>
     </div>
 

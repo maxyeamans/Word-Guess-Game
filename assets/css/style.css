@@ -1,12 +1,16 @@
-/* @font-face {
+@font-face {
     font-family: Overwatch;
     src: url(../fonts/big-noodle-too-oblique.woff);
 }
 
 body {
-    font-family: Overwatch, Arial , Helvetica , sans-serif;
+    font-family: Overwatch, Arial , Helvetica , sans-serif !important;
     letter-spacing: .03em;
-} */
+}
+
+body {
+    background: url("../images/bg-overwatch01.png");
+}
 
 #word-so-far, #guessed-letters {
    /* Space the game word and guessed letters apart
