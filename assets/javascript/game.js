@@ -1,5 +1,5 @@
 // Array holding potential list of words for each game
-var gameWords = ["hangman", "programming", "parameter", "argument", "stylesheet", "galavant", "basketball", "cookies", "sausage"];
+var gameWords = ["overwatch","junkrat","reaper","volskaya","tracer","widowmaker","zenyatta","roadhog","dragonblade","dragonstrike","supercharger","earthshatter","nanoboost","transcendence","doomfist","junkertown","numbani","hanamura"];
 
 // Object to store game properties and functions
 var GameData = {
@@ -16,12 +16,7 @@ var GameData = {
 
     // Assign the game's word from an array of potential words
     PickWord: function () {
-        // Play a victory sound
-        var victory = document.getElementById("audio-victory");
-        function playAudio() {
-            victory.load();
-            victory.play();
-        };
+
         // Reset game stats
         this.ResetStats();
         // // Clear the message area and make it message invisible
@@ -120,7 +115,7 @@ var GameData = {
             // Play a victory sound
             var victory = document.getElementById("audio-victory");
             function playAudio() {
-                victory.load();
+                victory.load
                 victory.play();
             };
             this.Wins++;
@@ -148,7 +143,7 @@ var GameData = {
 
     // Reset game stats
     ResetStats: function () {
-        this.GuessesLeft = 3;
+        this.GuessesLeft = 8;
         this.GameOver = false;
         this.CorrectLetters = 0;
         this.GuessedLetters = [];
