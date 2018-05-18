@@ -112,11 +112,11 @@ var GameData = {
             return;
         }
 
-        else if (this.GuessesLeft == 0) {
+        else if (this.GuessesLeft <= 0) {
             console.log("You lose! Good day, sir!\n\n");
             var divGameLose = document.getElementById("message-area");
-            divGameWin.textContent = "You lose! Good day, sir!";
-            divGameWin.setAttribute("class", "visible");
+            divGameLose.textContent = "You lose! Good day, sir!";
+            divGameLose.setAttribute("class", "visible");
             this.Losses++;
             this.GameOver = true;
             console.log("Press any key to start a new game.\n\n");
