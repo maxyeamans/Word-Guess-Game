@@ -1,6 +1,7 @@
 // Array holding potential list of words for each game
 var gameWords = ["hangman", "programming", "parameter", "argument", "stylesheet", "galavant", "basketball", "cookies", "sausage"];
 
+// Object to store game properties and functions
 var GameData = {
     "Wins": 0,
     "Losses": 0,
@@ -18,8 +19,9 @@ var GameData = {
 
         // Reset game stats
         this.ResetStats();
-        var keyStart = document.getElementById("message-area");
-        keyStart.setAttribute("class", "invisible");
+        // // Clear the message area and make it message invisible
+        // var keyStart = document.getElementById("message-area");
+        // keyStart.setAttribute("class", "invisible");
         // Show wins
         console.log("Wins:", this.Wins);
         var divWins = document.getElementById("wins");
@@ -33,19 +35,24 @@ var GameData = {
         divGuessesLeft.textContent = "Guesses left: " + this.GuessesLeft;
         // Pick a new word        
         this.GameWord = gameWords[Math.floor(Math.random() * gameWords.length)];
-        // Create a string with underscores equal to length of game's word
+        // Create a string string with underscores equal to length of game's word
+        // The array is used later to recreate WordSoFar on successful letter guesses
         console.log("Game word length:", this.GameWord.length);
         for (i = 0; i < this.GameWord.length - 1; i++) {
             this.WordBuilder.push("_");
-        };        
+        };
+        // Display the word so far
         this.DisplayWordSoFar();
         console.log("The word so far:", this.WordSoFar);
     },
 
     LetterPicked: function (letter) {
+        // Clear the message area and make it invisible
+        var keyStart = document.getElementById("message-area");
+        keyStart.setAttribute("class", "invisible");
         // Check to see if the letter has already been guessed
         if (this.GuessedLetters.indexOf(letter) >= 0 || this.WordSoFar.indexOf(letter) >= 0) {
-            // Do nothing if the letter has already been guessed, correctly or incorrectly
+            // Do nothing if the letter has already been guessed
             return;
         }
         // Do this if the letter isn't in the word
@@ -60,6 +67,7 @@ var GameData = {
             // Decrement guesses left
             this.GuessesLeft--;
             console.log("Guesses left:", this.GuessesLeft);
+            // Update the displayed guesses left
             var divGuessesLeft = document.getElementById("guesses-left");
             divGuessesLeft.textContent = "Guesses left: " + this.GuessesLeft;
         }
@@ -86,15 +94,15 @@ var GameData = {
         this.CheckForWin();
     },
 
+    // Displays the word with the correctly guessed letters so far
     DisplayWordSoFar: function (letter) {
         var divWordSoFar = document.getElementById("word-so-far");
         this.WordSoFar = "";    // Have to erase the string before recreating it.
         for (k = 0; k < this.GameWord.length; k++) {
             this.WordSoFar += this.WordBuilder[k];
         };
+        // Display the word so far on the page
         divWordSoFar.textContent = this.WordSoFar;
-        // I *think* this will print the word so far on the page
-
     },
 
     CheckForWin: function () {
@@ -103,24 +111,27 @@ var GameData = {
         // equals the length of the word, user wins.
         if (this.CorrectLetters == this.GameWord.length) {
             console.log("Congrats! You win!\n\n");
+            // Display win message at the top of the page
             var divGameWin = document.getElementById("message-area");
             divGameWin.textContent = "Congrats! You win!";
             divGameWin.setAttribute("class", "visible");
             this.Wins++;
             this.GameOver = true;
             console.log("Press any key to start a new game.\n\n");
-            return;
+            this.PickWord();
         }
 
+        // If the user runs out of guesses, they lose.
         else if (this.GuessesLeft <= 0) {
-            console.log("You lose! Good day, sir!\n\n");
+            console.log("The word was " + this.GameWord + ". You lose! Good day, sir!\n\n");
+            // Display loss message at the top of the page.
             var divGameLose = document.getElementById("message-area");
-            divGameLose.textContent = "You lose! Good day, sir!";
+            divGameLose.textContent = "The word was " + this.GameWord.toUpperCase() + ". You lose! Good day, sir!";
             divGameLose.setAttribute("class", "visible");
             this.Losses++;
             this.GameOver = true;
             console.log("Press any key to start a new game.\n\n");
-            return;
+            this.PickWord();
         }
 
 
@@ -128,15 +139,15 @@ var GameData = {
 
     // Reset game stats
     ResetStats: function () {
-        this.GuessesLeft = 6;
-        this.GameWon = false;
+        this.GuessesLeft = 3;
+        this.GameOver = false;
         this.CorrectLetters = 0;
         this.GuessedLetters = [];
         this.WordBuilder = ["_"];
         this.WordSoFar = "";
 
         document.getElementById("word-so-far").textContent = "";
-        document.getElementById("guessed-letters").textContent = "";
+        document.getElementById("guessed-letters").textContent = " ";
     }
 
 }
@@ -153,7 +164,7 @@ document.onkeyup = function (event) {
     }
 
     else if (GameData.GameOver == true) {
-        GameData.GameOver = false;
+        // GameData.GameOver = false;
         GameData.PickWord();
     }
 
