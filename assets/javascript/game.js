@@ -9,7 +9,7 @@ var GameData = {
     "GameWord": null,
     "CorrectLetters": 0,
     "GuessedLetters": [],
-    "WordBuilder": ["_ "],
+    "WordBuilder": [],
     "WordSoFar": "",
 
 
@@ -18,7 +18,7 @@ var GameData = {
 
         // Reset game stats
         this.ResetStats();
-        var keyStart = document.getElementById("start-message");
+        var keyStart = document.getElementById("message-area");
         keyStart.setAttribute("class", "invisible");
         // Show wins
         console.log("Wins:", this.Wins);
@@ -33,12 +33,13 @@ var GameData = {
         divGuessesLeft.textContent = "Guesses left: " + this.GuessesLeft;
         // Pick a new word        
         this.GameWord = gameWords[Math.floor(Math.random() * gameWords.length)];
-        console.log("Type a letter and see if it works!");
-        // console.log("Game has been won:", this.GameWon);
         // Create a string with underscores equal to length of game's word
+        console.log("Game word length:", this.GameWord.length);
         for (i = 0; i < this.GameWord.length - 1; i++) {
-            this.WordBuilder.push("_ ");
-        };
+            this.WordBuilder.push("_");
+        };        
+        this.DisplayWordSoFar();
+        console.log("The word so far:", this.WordSoFar);
     },
 
     LetterPicked: function (letter) {
@@ -53,9 +54,9 @@ var GameData = {
             // Push the wrong letter to the GuessedLetters array
             this.GuessedLetters.push(letter);
             console.log("Guessed letters:", this.GuessedLetters);
+            // Display incorrectly guessed letters
             var divGuessedLetters = document.getElementById("guessed-letters");
-            // !!! To do: add the code to insert the guessed letters into this div. !!!
-            // divGuessedLetters.textContent = this.GuessedLetters.forEach(function)
+            divGuessedLetters.textContent = this.GuessedLetters;
             // Decrement guesses left
             this.GuessesLeft--;
             console.log("Guesses left:", this.GuessesLeft);
@@ -73,15 +74,27 @@ var GameData = {
             }
             // Create a string from the correct letters array.
             // Probably won't need this once I'm displaying it on a web page.
-            this.WordSoFar = "";    // Have to erase the string before recreating it.
-            for (k = 0; k < this.GameWord.length; k++) {
-                this.WordSoFar += this.WordBuilder[k];
-            }
+            // this.WordSoFar = "";    // Have to erase the string before recreating it.
+            // for (k = 0; k < this.GameWord.length; k++) {
+            //     this.WordSoFar += this.WordBuilder[k];
+            // }
+            this.DisplayWordSoFar();
             console.log("The word so far:", this.WordSoFar);
         }
 
         console.log("Correctly guessed letters:", this.CorrectLetters);
         this.CheckForWin();
+    },
+
+    DisplayWordSoFar: function (letter) {
+        var divWordSoFar = document.getElementById("word-so-far");
+        this.WordSoFar = "";    // Have to erase the string before recreating it.
+        for (k = 0; k < this.GameWord.length; k++) {
+            this.WordSoFar += this.WordBuilder[k];
+        };
+        divWordSoFar.textContent = this.WordSoFar;
+        // I *think* this will print the word so far on the page
+
     },
 
     CheckForWin: function () {
@@ -90,6 +103,9 @@ var GameData = {
         // equals the length of the word, user wins.
         if (this.CorrectLetters == this.GameWord.length) {
             console.log("Congrats! You win!\n\n");
+            var divGameWin = document.getElementById("message-area");
+            divGameWin.textContent = "Congrats! You win!";
+            divGameWin.setAttribute("class", "visible");
             this.Wins++;
             this.GameOver = true;
             console.log("Press any key to start a new game.\n\n");
@@ -97,8 +113,10 @@ var GameData = {
         }
 
         else if (this.GuessesLeft == 0) {
-            console.log("You lose! Good day, sir!");
-            console.log("");
+            console.log("You lose! Good day, sir!\n\n");
+            var divGameLose = document.getElementById("message-area");
+            divGameWin.textContent = "You lose! Good day, sir!";
+            divGameWin.setAttribute("class", "visible");
             this.Losses++;
             this.GameOver = true;
             console.log("Press any key to start a new game.\n\n");
@@ -116,6 +134,9 @@ var GameData = {
         this.GuessedLetters = [];
         this.WordBuilder = ["_"];
         this.WordSoFar = "";
+
+        document.getElementById("word-so-far").textContent = "";
+        document.getElementById("guessed-letters").textContent = "";
     }
 
 }

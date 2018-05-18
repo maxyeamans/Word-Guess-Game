@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
         crossorigin="anonymous">
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" /> -->
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
 </head>
 
 <body>
@@ -19,7 +19,7 @@
             <div class="col-lg-12 mx-auto">
                 <header class="jumbotron">
                     <h1 class="display-3">Word Guessing Game</h1>
-                    <div class="visible" id="start-message">
+                    <div class="visible" id="message-area">
                         Press any key to start the game.
                     </div>
                 </header>
@@ -29,9 +29,9 @@
             <div class="col-md-8 text-center bg-info">
 
                 <h2>The Current Word</h2>
-                <div class="row" id="word-so-far">
+                <h3 id="word-so-far">
 
-                </div>
+                </h3>
 
             </div>
             <div class="col-md-3 text-right bg-secondary">
@@ -41,9 +41,10 @@
             </div>
         </div>
         <div class="row">
-            <h3 id="guessed-letters">
-                
-            </h3>
+            <div class="col-md-8 mx-auto bg-warning" id="incorrect-section">
+                <h3 id="guessed-letters">
+                </h3>
+            </div>
         </div>
     </div>
 

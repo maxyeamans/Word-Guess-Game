@@ -7,3 +7,10 @@ body {
     font-family: Overwatch, Arial , Helvetica , sans-serif;
     letter-spacing: .03em;
 } */
+
+#word-so-far, #guessed-letters {
+   /* Space the game word and guessed letters apart
+      to make it easier to read */
+   letter-spacing: 1rem !important;
+   text-transform: uppercase !important;
+}
