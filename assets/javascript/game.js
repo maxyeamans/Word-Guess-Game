@@ -110,7 +110,7 @@ var GameData = {
             console.log("Congrats! You win!\n\n");
             // Display win message at the top of the page
             var divGameWin = document.getElementById("message-area");
-            divGameWin.textContent = "Congrats! You win!";
+            divGameWin.textContent = "Congrats! The word was " + this.GameWord.toUpperCase() + ".  You win!";
             divGameWin.setAttribute("class", "visible");
             // Play a victory sound
             var victory = document.getElementById("audio-victory");
@@ -141,7 +141,7 @@ var GameData = {
 
     },
 
-    // Reset game stats
+    // Reset game stats and info displayed on the page
     ResetStats: function () {
         this.GuessesLeft = 8;
         this.GameOver = false;
