@@ -23,11 +23,11 @@ var GameData = {
         // var keyStart = document.getElementById("message-area");
         // keyStart.setAttribute("class", "invisible");
         // Show wins
-        console.log("Wins:", this.Wins);
+        // console.log("Wins:", this.Wins);
         var divWins = document.getElementById("wins");
         divWins.textContent = "Wins: " + this.Wins;
         // Show losses
-        console.log("Losses:", this.Losses);
+        // console.log("Losses:", this.Losses);
         var divLosses = document.getElementById("losses");
         divLosses.textContent = "Losses: " + this.Losses;
         // Show guesses left
@@ -37,13 +37,13 @@ var GameData = {
         this.GameWord = gameWords[Math.floor(Math.random() * gameWords.length)];
         // Create a string string with underscores equal to length of game's word
         // The array is used later to recreate WordSoFar on successful letter guesses
-        console.log("Game word length:", this.GameWord.length);
+        // console.log("Game word length:", this.GameWord.length);
         for (i = 0; i < this.GameWord.length - 1; i++) {
             this.WordBuilder.push("_");
         };
         // Display the word so far
         this.DisplayWordSoFar();
-        console.log("The word so far:", this.WordSoFar);
+        // console.log("The word so far:", this.WordSoFar);
     },
 
     LetterPicked: function (letter) {
@@ -54,16 +54,16 @@ var GameData = {
         }
         // Do this if the letter isn't in the word
         else if (this.GameWord.indexOf(letter) < 0) {
-            console.log("That letter isn't in the word!");
+            // console.log("That letter isn't in the word!");
             // Push the wrong letter to the GuessedLetters array
             this.GuessedLetters.push(letter);
-            console.log("Guessed letters:", this.GuessedLetters);
+            // console.log("Guessed letters:", this.GuessedLetters);
             // Display incorrectly guessed letters
             var divGuessedLetters = document.getElementById("guessed-letters");
             divGuessedLetters.textContent = this.GuessedLetters;
             // Decrement guesses left
             this.GuessesLeft--;
-            console.log("Guesses left:", this.GuessesLeft);
+            // console.log("Guesses left:", this.GuessesLeft);
             // Update the displayed guesses left
             var divGuessesLeft = document.getElementById("guesses-left");
             divGuessesLeft.textContent = "Guesses left: " + this.GuessesLeft;
@@ -84,10 +84,10 @@ var GameData = {
             //     this.WordSoFar += this.WordBuilder[k];
             // }
             this.DisplayWordSoFar();
-            console.log("The word so far:", this.WordSoFar);
+            // console.log("The word so far:", this.WordSoFar);
         }
 
-        console.log("Correctly guessed letters:", this.CorrectLetters);
+        // console.log("Correctly guessed letters:", this.CorrectLetters);
         this.CheckForWin();
     },
 
@@ -107,7 +107,7 @@ var GameData = {
         // If the number of correctly guessed letters
         // equals the length of the word, user wins.
         if (this.CorrectLetters == this.GameWord.length) {
-            console.log("Congrats! You win!\n\n");
+            // console.log("Congrats! You win!\n\n");
             // Display win message at the top of the page
             var divGameWin = document.getElementById("message-area");
             divGameWin.textContent = "Congrats! The word was " + this.GameWord.toUpperCase() + ".  You win!";
@@ -121,26 +121,37 @@ var GameData = {
             this.Wins++;
             this.GameOver = true;
             
-            console.log("Press any key to start a new game.\n\n");
+            // console.log("Press any key to start a new game.\n\n");
             this.PickWord();
         }
 
         // If the user runs out of guesses, they lose.
         else if (this.GuessesLeft <= 0) {
-            console.log("The word was " + this.GameWord + ". You lose! Good day, sir!\n\n");
+            // console.log("The word was " + this.GameWord + ". You lose! Good day, sir!\n\n");
             // Display loss message at the top of the page.
             var divGameLose = document.getElementById("message-area");
-            divGameLose.textContent = "The word was " + this.GameWord.toUpperCase() + ". You lose! Good day, sir!";
+            divGameLose.textContent = "Defeat! The word was " + this.GameWord.toUpperCase() + ".";
             divGameLose.setAttribute("class", "visible");
+            // Saving this for later: display a pic on game lose
+            // this.DisplayGameOverPic("../images/defeat.png");
             this.Losses++;
             this.GameOver = true;
-            console.log("Press any key to start a new game.\n\n");
+            // console.log("Press any key to start a new game.\n\n");
             this.PickWord();
         }
 
 
     },
 
+    // Saving this for later
+    // Show a pic after the game ends
+    // DisplayGameOverPic: function (picSrc) {
+    //     // Change the pic source
+    //     var picGameOver = document.getElementById("pic-game-over");
+    //     picGameOver.setAttribute("src", picSrc);
+    //     // picGameOver.setAttribute("class", "w-75");
+    // },
+    
     // Reset game stats and info displayed on the page
     ResetStats: function () {
         this.GuessesLeft = 8;
@@ -156,7 +167,7 @@ var GameData = {
 
 }
 
-console.log("Press any key to begin.\n\n");
+// console.log("Press any key to begin.\n\n");
 
 
 document.onkeyup = function (event) {
@@ -166,7 +177,7 @@ document.onkeyup = function (event) {
 
     if (GameData.GameOver == false) {
         var userInput = event.key.toLowerCase();
-        console.log("User input:", userInput);
+        // console.log("User input:", userInput);
         GameData.LetterPicked(userInput);
     }
 
